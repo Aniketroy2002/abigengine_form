@@ -1,11 +1,9 @@
-
 // server.js - Express proxy for Google Apps Script
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const multer = require("multer");
 const fetch = require("node-fetch");
-// const path = require('path');
 const app = express();
 const upload = multer();
 
@@ -50,12 +48,13 @@ app.post("/submit", async (req, res) => {
     res.status(500).json({ error: "Sheet submit proxy failed" });
   }
 });
-// app.use(express.static('public'));
 
-// app.get('/', (req, res) => {
-//   res.sendFile(path.join(__dirname, 'views', 'index.html'));
-// });
+app.use(express.static('public'));
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'index.html'));
+});
 
 app.listen(PORT, () => {
-  console.log(`Proxy server listening on port http://localhost:${PORT}`);
+  console.log(`Proxy server listening on port ${PORT}`);
 });
